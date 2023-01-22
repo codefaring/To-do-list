@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import './App.css';
 
 export default function App() {
   const [lists, setlists] = useState(['장보기', '공부하기']);
   return (
-    <div>
+    <div className='text'>
+      <h1>할일 목록</h1>
       <ul>
         {lists.map((list) => (
           <li>{list}</li>
