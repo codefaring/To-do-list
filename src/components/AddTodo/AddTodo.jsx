@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
-export default function AddInput({ onAdd }) {
+export default function AddTodo({ onAdd }) {
   const [add, setAdd] = useState('');
   const handleChange = (e) => setAdd(e.target.value);
   const handleSubmit = (e) => {
-    e.prevenDefault();
-    onAdd({ id: '', text: add, status: 'active' });
+    e.preventDefault();
+    onAdd({ id: uuidv4(), text: add, status: 'active' });
+    setAdd('');
   };
   return (
     <form onSubmit={handleSubmit}>
