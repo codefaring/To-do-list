@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import AddTodo from '../AddTodo/AddTodo';
 import List from '../List/List';
+import style from './TodoList.module.css';
 
 export default function TodoList({ filter }) {
   const [lists, setLists] = useState([
@@ -14,9 +15,8 @@ export default function TodoList({ filter }) {
     setLists(lists.filter((list) => list.id !== deleted.id));
   const filtered = getFilteredItem(lists, filter);
   return (
-    <section>
-      <h1>할일 목록</h1>
-      <ul>
+    <section className={style.container}>
+      <ul className={style.list}>
         {filtered.map((list) => (
           <List
             key={list.id}
