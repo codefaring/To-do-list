@@ -7,7 +7,10 @@ export default function Header({ filters, filter, onFilterChange }) {
   const { nightMode, toggleNightMode } = useNightMode();
   return (
     <header className={styles.header}>
-      <button onClick={toggleNightMode}>
+      <button
+        onClick={toggleNightMode}
+        className={styles.toggle}
+      >
         {!nightMode && <HiMoon />}
         {nightMode && <HiSun />}
       </button>
