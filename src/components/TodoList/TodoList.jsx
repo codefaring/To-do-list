@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddTodo from '../AddTodo/AddTodo';
 import List from '../List/List';
 import style from './TodoList.module.css';
 
 export default function TodoList({ filter }) {
-  const [lists, setLists] = useState([
-    { id: '1', text: '장보기', status: 'active' },
-    { id: '2', text: '청소하기', status: 'active' },
-  ]);
+  const [lists, setLists] = useState(() => uploadLocalStorage());
   const handleAdd = (todo) => setLists([...lists, todo]);
   const handleUpdate = (updated) =>
     setLists(lists.map((list) => (list.id === updated.id ? updated : list)));
   const handleDelete = (deleted) =>
     setLists(lists.filter((list) => list.id !== deleted.id));
+  useEffect(() => {
+    localStorage.setItem('lists', JSON.stringify(lists));
+  }, [lists]);
+
   const filtered = getFilteredItem(lists, filter);
   return (
     <section className={style.container}>
@@ -36,4 +37,9 @@ function getFilteredItem(lists, filter) {
     return lists;
   }
   return lists.filter((list) => list.status === filter);
+}
+
+function uploadLocalStorage() {
+  const lists = localStorage.getItem('lists');
+  return lists ? JSON.parse(lists) : [];
 }
